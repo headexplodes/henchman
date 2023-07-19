@@ -1,0 +1,13 @@
+[task]
+description = "Enum parameter"
+method = ["GET"]
+
+[[task.parameters]]
+name = "param1"
+type = "string"
+enum = ["bar"]
+env = "PARAM_1"
+
+[exec]
+command = "bash"
+args = ["-c", "echo Success: $PARAM_1"]

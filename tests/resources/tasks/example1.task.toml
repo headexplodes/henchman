@@ -1,0 +1,20 @@
+[task]
+description = "Example 1"
+method = ["POST"]
+
+[[task.parameters]]
+name = "param1"
+env = "PARAM_1"
+required = true
+type = "string"
+enum = ["foo", "bar"]
+
+[[task.parameters]]
+name = "param2"
+env = "PARAM_2"
+default = 3
+type = "number"
+
+[exec]
+command = "./example1.sh"
+dir = "bin"

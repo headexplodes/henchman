@@ -1,0 +1,26 @@
+[task]
+description = "Echo example"
+method = ["POST"]
+
+[[task.parameters]]
+name = "message"
+env = "MESSAGE"
+required = true
+type = "string"
+enum = [
+    "Hello world!",
+    "I would walk 500 miles..."
+]
+
+[[task.parameters]]
+name = "times"
+env = "TIMES"
+default = "3"
+type = "number"
+
+[exec]
+command = "./echo.sh"
+dir = "bin"
+
+# [auth]
+# roles_allowed = ["guest"]

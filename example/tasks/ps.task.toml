@@ -1,0 +1,10 @@
+[task]
+description = "Proccess list"
+method = ["GET"]
+
+[exec]
+command = "ps"
+args = ["-Af"]
+
+# [auth]
+# roles_allowed = ["guest"]

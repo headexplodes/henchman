@@ -1,0 +1,12 @@
+[task]
+description = "Boolean parameter"
+method = ["GET"]
+
+[[task.parameters]]
+name = "param1"
+type = "boolean"
+env = "PARAM_1"
+
+[exec]
+command = "bash"
+args = ["-c", "echo Success: $PARAM_1"]

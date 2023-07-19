@@ -1,0 +1,14 @@
+[server]
+dir = "tasks"
+listen = "127.0.0.1:8080"
+
+[auth]
+#enabled = true
+#guest = false
+#guest-roles = ["GUEST"]
+
+[[auth.users]]
+username = "admin"
+# hashed password for 'secret'
+password = "0100002710053615732b4de713b68cf98b3405e06ac373182d28c9932f19569177addbb63889db74bc6ecdb6ab54a5d5f395356c1e"
+roles = ["ADMIN"]

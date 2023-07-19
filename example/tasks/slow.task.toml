@@ -1,0 +1,10 @@
+[task]
+description = "Slow task example"
+method = ["GET"]
+
+[exec]
+command = "./slow.sh"
+dir = "bin"
+
+# [auth]
+# roles_allowed = ["guest"]

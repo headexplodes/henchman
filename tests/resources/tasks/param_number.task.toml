@@ -1,0 +1,12 @@
+[task]
+description = "Number parameter"
+method = ["GET"]
+
+[[task.parameters]]
+name = "param1"
+type = "number"
+env = "PARAM_1"
+
+[exec]
+command = "bash"
+args = ["-c", "echo Success: $PARAM_1"]
