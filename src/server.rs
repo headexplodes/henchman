@@ -7,7 +7,6 @@ use std::time::{Duration, Instant};
 use futures::future::TryFutureExt;
 use futures::stream::StreamExt;
 
-// use tokio_stream::StreamExt;
 use tokio_stream::wrappers::LinesStream;
 
 use http::{header, HeaderValue, Method, StatusCode};
@@ -113,15 +112,6 @@ const SESSION_CACHE_PERIOD: Duration = Duration::from_secs(30 * 60); // 30 minut
 fn prune_expired(sessions: &mut HashMap<CachedCredential, UserSession>) -> () {
     let now = Instant::now();
 
-    // let expired: Vec<&CachedCredential> = sessions.iter()
-    //     .filter(|(_, v)| v.expires_at.lt(&now))
-    //     .map(|(k, _)| k)
-    //     .collect();
-    //
-    // for key in expired {
-    //     sessions.remove(key);
-    // }
-
     sessions.retain(|_k, v| {
         v.expires_at.lt(&now)
     });
@@ -188,11 +178,6 @@ fn ensure_auth(shared: &Arc<crate::Shared>, req: &Request<Body>) -> Result<UserP
                     Err(ServerError::InternalServerError)
                 }
             }?;
-
-            // if !crate::password::verify_password_parts(&password, &user_def.password)? {
-            //     warn!("Incorrect password for user: {}", username);
-            //     return Err(ServerError::Unauthorized);
-            // }
 
             // don't keep this lock while verifying password above (verifying is slow)
             let mut sessions = shared.sessions.write()
@@ -469,8 +454,6 @@ fn exec_task(task: TaskExec) -> Result<Response<Body>, ServerError> {
 
     let mut command = Command::new(&task.command);
 
-    // info!("Running command: program = \"{}\", dir = \"{:?}\", args = \"{:?}\"", task.command, task.dir, args);
-
     // kill process if the connection is dropped (if nobody is around to see output process shouldn't keep running)
     command.current_dir(task.dir)
         .args(&args)
@@ -511,7 +494,6 @@ fn exec_task(task: TaskExec) -> Result<Response<Body>, ServerError> {
     });
 
     let exit_code = futures::stream::once(exit_code_fut);
-    // let exit_code = futures::stream::empty();;
 
     let chained = interleaved.chain(exit_code);
 

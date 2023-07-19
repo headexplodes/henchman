@@ -56,8 +56,6 @@ const DEFAULT_TASK_DIR: &'static str = ".";
 const DEFAULT_LISTEN_ADDR: &'static str = "0.0.0.0:8080";
 
 pub struct ServerConfig {
-    // pub listen_addr: SocketAddr,
-    // pub task_dir: PathBuf,
     pub config: PathBuf,
 }
 

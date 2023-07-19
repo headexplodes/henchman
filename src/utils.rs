@@ -27,10 +27,6 @@ pub fn parse_authorization_value(value: &str) -> Result<AuthorizationValue, Serv
 
     if let Some(captures) = BASIC_PATTERN.captures(value) {
         if let Some(cred_base64) = captures.get(1) {
-            // let cred_bytes = base64::decode(cred_base64.as_str()).map_err(|err| {
-            //     error!("Error decoding credentials as base64: {}", err);
-            //     ServerError::BadRequest(format!("Malformed Authorization header"))
-            // })?;
             let cred_bytes = base64::engine::general_purpose::STANDARD_NO_PAD.decode(cred_base64.as_str()).map_err(|err| {
                 error!("Error decoding credentials as base64: {}", err);
                 ServerError::BadRequest(format!("Malformed Authorization header"))

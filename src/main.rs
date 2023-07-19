@@ -13,14 +13,8 @@ use std::path::{PathBuf};
 
 use futures::FutureExt;
 
-// current directory by default
-// const DEFAULT_TASK_DIR: &'static str = ".";
-// const DEFAULT_LISTEN_ADDR: &'static str = "0.0.0.0:8080";
-
 #[derive(Debug)]
 struct ParsedArgs {
-    // dir: Option<String>,
-    // listen: Option<String>,
     config: String
 }
 
@@ -35,8 +29,6 @@ fn parse_args() -> Option<ParsedArgs> {
 
     let mut opts = Options::new();
     opts.reqopt("c", "config", "Server configuration file", "CONFIG");
-    // opts.optopt("d", "dir", "Tasks directory (default is current directory)", "DIR");
-    // opts.optopt("l", "listen", &format!("Address to listen on (default {})", DEFAULT_LISTEN_ADDR), "LISTEN");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,
@@ -48,8 +40,6 @@ fn parse_args() -> Option<ParsedArgs> {
     };
 
     let parsed = ParsedArgs {
-        // dir: matches.opt_str("dir"),
-        // listen: matches.opt_str("listen"),
         config: matches.opt_str("config").unwrap_or_else(||
             panic!("Required field not provided")) // should have already been validated
     };
@@ -69,23 +59,7 @@ pub fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    // let listen_addr = match env::var("LISTEN_ADDR") {
-    //     Ok(s) => s.parse::<SocketAddr>().map_err(|e| {
-    //         error!("Error parsing listen address: {:?}", e);
-    //         AppError::InvalidListenAddr
-    //     }),
-    //     Err(env::VarError::NotPresent) => Ok(DEFAULT_LISTEN_ADDR.parse().unwrap()),
-    //     Err(e) => {
-    //         error!("Error reading listen address: {:?}", e);
-    //         Err(AppError::InvalidListenAddr)
-    //     }
-    // }?;
-
-    // let task_dir: PathBuf = args.dir.map(|x| PathBuf::from(x)).unwrap_or(PathBuf::from(DEFAULT_TASK_DIR));
-
     let config = ServerConfig {
-        // listen_addr,
-        // task_dir,
         config: PathBuf::from(args.config)
     };
 
